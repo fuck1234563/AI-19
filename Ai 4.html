@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+<title>Creative Portfolio</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+
+<style>
+
+/* =========================
+   RESET
+========================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:'Inter',sans-serif;
+    background:#050505;
+    color:#f5f5f5;
+    overflow-x:hidden;
+}
+
+/* =========================
+   NOISE
+========================= */
+
+body::before{
+    content:'';
+    position:fixed;
+    inset:0;
+
+    background-image:
+    radial-gradient(rgba(255,255,255,0.03) 1px, transparent 1px);
+
+    background-size:4px 4px;
+
+    opacity:0.12;
+
+    pointer-events:none;
+
+    z-index:9999;
+}
+
+/* =========================
+   GLOW
+========================= */
+
+.glow{
+    position:fixed;
+
+    width:500px;
+    height:500px;
+
+    background:
+    radial-gradient(circle,
+    rgba(255,255,255,0.08),
+    transparent 70%);
+
+    pointer-events:none;
+
+    transform:translate(-50%, -50%);
+
+    z-index:0;
+}
+
+/* =========================
+   NAV
+========================= */
+
+nav{
+    position:fixed;
+    top:0;
+    left:0;
+
+    width:100%;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    padding:28px 60px;
+
+    z-index:1000;
+
+    transition:0.4s;
+}
+
+.logo{
+    font-size:14px;
+    letter-spacing:4px;
+    opacity:0.8;
+}
+
+nav ul{
+    display:flex;
+    list-style:none;
+    gap:40px;
+}
+
+nav a{
+    color:white;
+    text-decoration:none;
+    font-size:14px;
+    opacity:0.6;
+    transition:0.3s;
+}
+
+nav a:hover{
+    opacity:1;
+}
+
+/* =========================
+   HERO
+========================= */
+
+.hero{
+    min-height:100vh;
+
+    display:flex;
+    align-items:center;
+
+    padding:0 8vw;
+
+    position:relative;
+}
+
+.hero-grid{
+    width:100%;
+
+    display:grid;
+    grid-template-columns:1.1fr 0.9fr;
+
+    gap:100px;
+    align-items:center;
+}
+
+.hero-sub{
+    font-size:13px;
+    letter-spacing:5px;
+    margin-bottom:30px;
+    opacity:0.45;
+}
+
+.hero-title{
+    font-size:8vw;
+    line-height:0.88;
+
+    font-weight:900;
+
+    letter-spacing:-6px;
+
+    text-transform:uppercase;
+}
+
+.hero-title span{
+    display:block;
+    color:#666;
+}
+
+.hero-desc{
+    margin-top:40px;
+
+    width:520px;
+    max-width:100%;
+
+    font-size:18px;
+    line-height:1.9;
+
+    color:#9a9a9a;
+}
+
+/* =========================
+   PROFILE
+========================= */
+
+.profile-wrap{
+    position:relative;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+/* glow */
+
+.profile-wrap::before{
+    content:'';
+
+    position:absolute;
+
+    width:110%;
+    height:110%;
+
+    background:
+    radial-gradient(circle,
+    rgba(255,255,255,0.12),
+    transparent 70%);
+
+    filter:blur(60px);
+
+    z-index:0;
+}
+
+/* image box */
+
+.profile-img{
+    width:100%;
+    max-width:520px;
+
+    height:720px;
+
+    border-radius:40px;
+
+    overflow:hidden;
+
+    position:relative;
+
+    z-index:2;
+
+    background:#111;
+
+    border:
+    1px solid rgba(255,255,255,0.08);
+
+    box-shadow:
+    0 20px 80px rgba(0,0,0,0.6),
+    inset 0 0 0 1px rgba(255,255,255,0.04);
+
+    transform:rotate(2deg);
+
+    transition:1s;
+}
+
+.profile-img:hover{
+    transform:rotate(0deg) scale(1.02);
+}
+
+.profile-img img{
+    width:100%;
+    height:100%;
+
+    object-fit:cover;
+
+    filter:
+    contrast(1.05)
+    brightness(0.96)
+    saturate(0.9);
+
+    transition:1.2s;
+}
+
+.profile-img:hover img{
+    transform:scale(1.05);
+}
+
+/* badge */
+
+.profile-badge{
+    position:absolute;
+
+    bottom:40px;
+    left:-40px;
+
+    background:
+    rgba(255,255,255,0.95);
+
+    color:black;
+
+    padding:22px 30px;
+
+    border-radius:24px;
+
+    font-size:14px;
+    font-weight:700;
+
+    line-height:1.7;
+
+    backdrop-filter:blur(20px);
+
+    z-index:5;
+
+    box-shadow:
+    0 10px 40px rgba(0,0,0,0.35);
+}
+
+.profile-badge span{
+    display:block;
+
+    font-size:12px;
+
+    letter-spacing:2px;
+
+    opacity:0.5;
+
+    margin-bottom:5px;
+}
+
+/* =========================
+   SECTION
+========================= */
+
+section{
+    padding:180px 8vw;
+    position:relative;
+}
+
+.section-label{
+    font-size:12px;
+    letter-spacing:4px;
+    opacity:0.4;
+    margin-bottom:25px;
+}
+
+.section-title{
+    font-size:5vw;
+    line-height:1;
+    margin-bottom:80px;
+    text-transform:uppercase;
+}
+
+/* =========================
+   CARDS
+========================= */
+
+.grid{
+    display:grid;
+
+    grid-template-columns:
+    repeat(auto-fit,minmax(320px,1fr));
+
+    gap:30px;
+}
+
+.card{
+    background:
+    rgba(255,255,255,0.03);
+
+    border:
+    1px solid rgba(255,255,255,0.06);
+
+    border-radius:30px;
+
+    padding:40px;
+
+    transition:0.5s;
+
+    position:relative;
+
+    overflow:hidden;
+}
+
+.card::before{
+    content:'';
+
+    position:absolute;
+
+    inset:0;
+
+    background:
+    linear-gradient(
+    130deg,
+    transparent,
+    rgba(255,255,255,0.04),
+    transparent);
+
+    transform:translateX(-100%);
+
+    transition:1s;
+}
+
+.card:hover::before{
+    transform:translateX(100%);
+}
+
+.card:hover{
+    transform:translateY(-10px);
+
+    border-color:
+    rgba(255,255,255,0.15);
+}
+
+.card h3{
+    font-size:30px;
+    margin-bottom:20px;
+}
+
+.card p{
+    color:#9a9a9a;
+    line-height:1.9;
+}
+
+/* =========================
+   SKILLS
+========================= */
+
+.skills{
+    display:flex;
+    flex-wrap:wrap;
+    gap:18px;
+
+    margin-top:50px;
+}
+
+.skill{
+    padding:18px 28px;
+
+    border-radius:999px;
+
+    border:
+    1px solid rgba(255,255,255,0.08);
+
+    background:
+    rgba(255,255,255,0.03);
+
+    transition:0.4s;
+}
+
+.skill:hover{
+    background:white;
+    color:black;
+}
+
+/* =========================
+   WORKS
+========================= */
+
+.work-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:40px;
+}
+
+.work-item{
+    position:relative;
+    overflow:hidden;
+    border-radius:32px;
+    cursor:pointer;
+}
+
+.work-item img{
+    width:100%;
+    height:700px;
+    object-fit:cover;
+    transition:1s;
+}
+
+.work-item:hover img{
+    transform:scale(1.08);
+}
+
+.work-overlay{
+    position:absolute;
+    bottom:0;
+    left:0;
+
+    width:100%;
+
+    padding:45px;
+
+    background:
+    linear-gradient(
+    transparent,
+    rgba(0,0,0,0.92));
+}
+
+.work-overlay h3{
+    font-size:34px;
+    margin-bottom:10px;
+}
+
+.work-overlay p{
+    color:#aaa;
+}
+
+/* =========================
+   GALLERY
+========================= */
+
+.gallery{
+    display:grid;
+
+    grid-template-columns:
+    repeat(3,1fr);
+
+    gap:25px;
+
+    margin-top:70px;
+}
+
+.gallery img{
+    width:100%;
+    height:400px;
+
+    object-fit:cover;
+
+    border-radius:24px;
+
+    transition:0.8s;
+}
+
+.gallery img:hover{
+    transform:
+    translateY(-10px)
+    scale(1.02);
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+footer{
+    padding:180px 8vw 100px;
+}
+
+.footer-title{
+    font-size:8vw;
+    line-height:0.9;
+
+    margin-bottom:40px;
+
+    text-transform:uppercase;
+}
+
+.contact{
+    font-size:24px;
+    color:#999;
+}
+
+/* =========================
+   ANIMATION
+========================= */
+
+.fade-up{
+    opacity:0;
+    transform:translateY(80px);
+    transition:1.2s ease;
+}
+
+.fade-up.show{
+    opacity:1;
+    transform:translateY(0);
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:1000px){
+
+    nav{
+        padding:25px;
+    }
+
+    nav ul{
+        gap:20px;
+    }
+
+    .hero-grid{
+        grid-template-columns:1fr;
+    }
+
+    .hero-title{
+        font-size:18vw;
+    }
+
+    .section-title{
+        font-size:14vw;
+    }
+
+    .profile-img{
+        height:600px;
+    }
+
+    .profile-badge{
+        left:10px;
+        bottom:10px;
+    }
+
+    .work-grid{
+        grid-template-columns:1fr;
+    }
+
+    .gallery{
+        grid-template-columns:1fr;
+    }
+
+    .footer-title{
+        font-size:18vw;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="glow"></div>
+
+<!-- =========================
+     NAV
+========================= -->
+
+<nav>
+
+<div class="logo">
+    애니원고 포트폴리오
+</div>
+
+<ul>
+    <li><a href="#about">About</a></li>
+    <li><a href="#works">Works</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#contact">Contact</a></li>
+</ul>
+
+</nav>
+
+<!-- =========================
+     HERO
+========================= -->
+
+<section class="hero">
+
+<div class="hero-grid">
+
+<div class="fade-up">
+
+<div class="hero-sub">
+    MOTION GRAPHIC · AI CREATIVE · 3D DESIGN
+</div>
+
+<h1 class="hero-title">
+    오가윤의
+    <span>애니원고 포트폴리오</span>
+</h1>
+
+<div class="hero-desc">
+
+기술과 예술의 경계를 허물며
+AI · 3D · 모션 그래픽스 기반의
+새로운 영상 경험을 만드는 학생입니다.
+
+</div>
+
+</div>
+
+<!-- PROFILE -->
+
+<div class="profile-wrap fade-up">
+
+<div class="profile-img">
+
+    <!-- 같은 폴더의 12.png 사용 -->
+    <img src="12.png" alt="profile">
+
+</div>
+
+<div class="profile-badge">
+
+    <span>픽셀 정크랫</span>
+
+    BASED IN<br>
+    ULSAN, KOREA
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- =========================
+     ABOUT
+========================= -->
+
+<section id="about">
+
+<div class="section-label fade-up">
+    ABOUT
+</div>
+
+<h2 class="section-title fade-up">
+    나의<br>
+    소개글
+</h2>
+
+<div class="grid">
+
+<div class="card fade-up">
+
+    <h3>소개글</h3>
+
+    <p>
+        3D애니메이션과2D애니메이션을 전문으로 사람들의 반응을
+        살펴보아여 더 구체적이고 현실감있게 만들고 있습니다
+        
+    </p>
+
+</div>
+
+<div class="card fade-up">
+
+    <h3>내가 생각하는 중요성</h3>
+
+    <p>
+        단순한 영상 제작이 아닌
+        감정과 몰입감을 전달하는 디자인을 중요하게 생각합니다.
+    </p>
+
+</div>
+
+<div class="card fade-up">
+
+    <h3>AI 제작</h3>
+
+    <p>
+        생성형 AI 기술과 기존 영상 제작 파이프라인을 결합하여
+        새로운 제작 워크플로우를 연구하고 있습니다.
+    </p>
+
+</div>
+
+</div>
+
+<div class="skills fade-up">
+
+<div class="skill">After Effects</div>
+<div class="skill">Cinema 4D</div>
+<div class="skill">Blender</div>
+<div class="skill">AI Prompt</div>
+<div class="skill">3D Motion</div>
+<div class="skill">typographics</div>
+<div class="skill">motion graphics</div>
+
+</div>
+
+</section>
+
+<!-- =========================
+     WORKS
+========================= -->
+
+<section id="works">
+
+<div class="section-label fade-up">
+    SELECTED WORKS
+</div>
+
+<h2 class="section-title fade-up">
+    PROJECTS
+</h2>
+
+<div class="work-grid">
+
+<div class="work-item fade-up">
+
+    <img src="work1.jpg" alt="work">
+
+    <div class="work-overlay">
+
+        <h3>AI MOTION</h3>
+
+        <p>
+            AI + Motion Graphic Project
+        </p>
+
+    </div>
+
+</div>
+
+<div class="work-item fade-up">
+
+    <img src="work2.jpg" alt="work">
+
+    <div class="work-overlay">
+
+        <h3>3D VISUAL</h3>
+
+        <p>
+            Cinema 4D Visual Design
+        </p>
+
+    </div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- =========================
+     GALLERY
+========================= -->
+
+<section id="gallery">
+
+<div class="section-label fade-up">
+    GALLERY
+</div>
+
+<h2 class="section-title fade-up">
+    VISUAL<br>
+    ARCHIVE
+</h2>
+
+<div class="gallery fade-up">
+
+    <img src="gallery1.jpg" alt="">
+    <img src="gallery2.jpg" alt="">
+    <img src="gallery3.jpg" alt="">
+    <img src="gallery4.jpg" alt="">
+    <img src="gallery5.jpg" alt="">
+    <img src="gallery6.jpg" alt="">
+
+</div>
+
+</section>
+
+<!-- =========================
+     FOOTER
+========================= -->
+
+<footer id="contact">
+
+<div class="section-label fade-up">
+    CONTACT
+</div>
+
+<h2 class="footer-title fade-up">
+    연락처<br>
+    이메일
+</h2>
+
+<div class="contact fade-up">
+    tt01094125080@email.com
+</div>
+
+</footer>
+
+<script>
+
+/* =========================
+   GLOW
+========================= */
+
+const glow = document.querySelector('.glow');
+
+window.addEventListener('mousemove',(e)=>{
+
+    glow.style.left = e.clientX + 'px';
+    glow.style.top = e.clientY + 'px';
+
+});
+
+/* =========================
+   SCROLL ANIMATION
+========================= */
+
+const fadeElements =
+document.querySelectorAll('.fade-up');
+
+const observer =
+new IntersectionObserver((entries)=>{
+
+    entries.forEach(entry=>{
+
+        if(entry.isIntersecting){
+
+            entry.target.classList.add('show');
+
+        }
+
+    });
+
+},{
+    threshold:0.15
+});
+
+fadeElements.forEach(el=>{
+
+    observer.observe(el);
+
+});
+
+/* =========================
+   NAV BACKGROUND
+========================= */
+
+window.addEventListener('scroll',()=>{
+
+    const nav = document.querySelector('nav');
+
+    if(window.scrollY > 50){
+
+        nav.style.background =
+        'rgba(0,0,0,0.45)';
+
+        nav.style.backdropFilter =
+        'blur(12px)';
+
+    }else{
+
+        nav.style.background =
+        'transparent';
+
+    }
+
+});
+
+</script>
+
+</body>
+</html>
